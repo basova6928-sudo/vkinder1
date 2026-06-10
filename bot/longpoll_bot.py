@@ -24,7 +24,7 @@ print("GROUP_TOKEN:", TOKEN)
 vk = vk_api.VkApi(token=TOKEN)
 longpoll = VkLongPoll(vk)
 
-# ========== ЗАЩИТА ОТ ДУБЛЕЙ ==========
+
 last_message_time = {}
 is_processing = {}
 
@@ -73,10 +73,10 @@ def run_bot():
             request = event.text.lower().strip()
             current_time = time.time()
 
-            # Убеждаемся, что пользователь есть в БД
+           
             ensure_user_exists(user_id)
 
-            # === ЗАЩИТА ОТ ДУБЛЕЙ ===
+        
             if is_processing.get(user_id, False):
                 print(f"⚠️ Пропуск: {user_id} уже в обработке")
                 continue
@@ -92,7 +92,7 @@ def run_bot():
             try:
                 state = get_state(user_id)
 
-                # ===== КОМАНДА "ПОИСК" =====
+              
                 if request == "поиск":
                     print(f"🔍 Поиск для {user_id}")
 
@@ -104,7 +104,7 @@ def run_bot():
                         write_msg(user_id, "Никого не нашёл 😢")
                         continue
 
-                    # Исключаем уже добавленных в избранное
+                   
                     favorites = get_favorites(user_id)
                     favorite_ids = [f["id"] for f in favorites]
                     candidates = [
@@ -127,7 +127,7 @@ def run_bot():
 
                     write_msg(user_id, profile_text, attachment=attachment)
 
-                # ===== КОМАНДА "СЛЕДУЮЩИЙ" =====
+               
                 elif request == "следующий":
                     print(f"➡️ Следующий для {user_id}")
 
@@ -145,7 +145,7 @@ def run_bot():
 
                     write_msg(user_id, profile_text, attachment=attachment)
 
-                # ===== КОМАНДА "В ИЗБРАННОЕ" =====
+               
                 elif request == "в избранное":
                     print(f"❤️ Избранное для {user_id}")
 
@@ -185,7 +185,7 @@ def run_bot():
                     else:
                         write_msg(user_id, "Ошибка при добавлении 😢")
 
-                # ===== КОМАНДА "ИЗБРАННОЕ" =====
+             
                 elif request == "избранное":
                     print(f"📋 Избранное для {user_id}")
 
@@ -200,7 +200,7 @@ def run_bot():
                             msg += f"   {fav['profile_url']}\n\n"
                         write_msg(user_id, msg)
 
-                # ===== НЕИЗВЕСТНАЯ КОМАНДА =====
+               
                 else:
                     write_msg(
                         user_id,
