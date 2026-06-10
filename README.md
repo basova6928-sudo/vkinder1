@@ -78,6 +78,9 @@ psql -h DB_HOST -p DB_PORT -U DB_USER -d DB_NAME -f create_tables.sql
 Откройте файл create_tables.sql в интерфейсе вашей СУБД.
 Выполните все запросы из файла в контексте нужной базы данных.
 
+<img width="549" height="469" alt="dbeaver_V3d9knzf93" src="https://github.com/user-attachments/assets/7dbc2c77-9de7-47af-99ad-257cf12cbef8" />
+
+
 ### Шаг 6. Запуск бота
 
 python main.py
