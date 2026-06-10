@@ -1,7 +1,6 @@
 from database.db import get_connection
 
 
-# ========== ПОЛЬЗОВАТЕЛИ ==========
 
 def add_user(vk_id, first_name, last_name):
     """Добавление пользователя в БД"""
@@ -69,14 +68,13 @@ def get_user_by_db_id(db_id):
         conn.close()
 
 
-# ========== ИЗБРАННОЕ ==========
 
 def add_to_favorites(vk_user_id, candidate):
     """Добавление кандидата в избранное"""
     conn = get_connection()
     try:
         with conn.cursor() as cur:
-            # Получаем внутренний ID пользователя
+            
             cur.execute(
                 "SELECT id FROM users WHERE vk_id = %s",
                 (vk_user_id,)
@@ -94,7 +92,7 @@ def add_to_favorites(vk_user_id, candidate):
                 print("❌ Нет vk_id в кандидате!")
                 return False
 
-            # Проверяем, есть ли кандидат в matches
+           
             cur.execute(
                 "SELECT id FROM matches WHERE vk_id = %s",
                 (candidate_vk_id,)
@@ -104,7 +102,7 @@ def add_to_favorites(vk_user_id, candidate):
             if match_row:
                 match_id = match_row[0]
             else:
-                # Сохраняем нового кандидата
+               
                 photos = candidate.get("photos", [])
                 cur.execute("""
                     INSERT INTO matches
@@ -124,7 +122,7 @@ def add_to_favorites(vk_user_id, candidate):
                 ))
                 match_id = cur.fetchone()[0]
 
-            # Добавляем в избранное
+           
             cur.execute("""
                 INSERT INTO favorites (user_id, match_id)
                 VALUES (%s, %s)
@@ -143,7 +141,7 @@ def add_to_favorites(vk_user_id, candidate):
 
 
 def get_favorites(vk_user_id):
-    """Получение списка избранных кандидатов для пользователя"""
+    
     conn = get_connection()
     try:
         with conn.cursor() as cur:
@@ -172,7 +170,7 @@ def get_favorites(vk_user_id):
 
 
 def is_favorite(vk_user_id, candidate_vk_id):
-    """Проверка, есть ли кандидат в избранном у пользователя"""
+    
     conn = get_connection()
     try:
         with conn.cursor() as cur:
@@ -188,7 +186,7 @@ def is_favorite(vk_user_id, candidate_vk_id):
 
 
 def remove_from_favorites(vk_user_id, candidate_vk_id):
-    """Удаление кандидата из избранного"""
+   
     conn = get_connection()
     try:
         with conn.cursor() as cur:
@@ -208,7 +206,7 @@ def remove_from_favorites(vk_user_id, candidate_vk_id):
 
 
 def get_favorites_count(vk_user_id):
-    """Количество избранных кандидатов у пользователя"""
+    
     conn = get_connection()
     try:
         with conn.cursor() as cur:
