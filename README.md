@@ -42,8 +42,10 @@ cd vkinder
 ### Шаг 2: Создание виртуального окружения
 
 python -m venv .venv
-.venv\Scripts\activate      # Windows
-source .venv/bin/activate   # Linux/Mac
+
+.venv\Scripts\activate  
+
+source .venv/bin/activate   
 
 ### Шаг 3: Установка зависимостей
 
@@ -54,25 +56,29 @@ pip install -r requirements.txt
 Создайте файл .env в корне проекта:
 
 # Токены ВКонтакте
+
 GROUP_TOKEN=ваш_токен_группы
+
 USER_TOKEN=ваш_пользовательский_токен
+
 GROUP_ID=id_группы
 
 # Настройки базы данных PostgreSQL
+
 DB_NAME=имя_базы_данных
+
 DB_USER=пользователь
+
 DB_PASSWORD=пароль
+
 DB_HOST=localhost
+
 DB_PORT=5432
 
 
 ### Шаг 5. Инициализация базы данных
-Поскольку SQL‑запросы для создания таблиц вынесены в отдельный файл, выполните их одним из удобных способов:
+SQL-запросы вынесены в отдельный файл create_tables.sql в папке database. 
 
-Через psql:
-
-psql -h DB_HOST -p DB_PORT -U DB_USER -d DB_NAME -f create_tables.sql
-(при выполнении будет запрошен пароль от БД).
 
 Через DBeaver:
 
